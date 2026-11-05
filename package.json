@@ -1,6 +1,6 @@
 {
   "name": "@ubuligan/figma-bridge",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Read a live Figma file from Claude or the terminal — local MCP server + Figma plugin, no API token.",
   "type": "module",
   "bin": {
@@ -12,6 +12,7 @@
   "files": [
     "bin/",
     "bridge/",
+    "skills/",
     "CHANGELOG.md"
   ],
   "engines": {
@@ -34,7 +35,9 @@
     "claude",
     "design-tokens",
     "figma-plugin",
-    "model-context-protocol"
+    "model-context-protocol",
+    "agent-skill",
+    "claude-code-skill"
   ],
   "scripts": {
     "test": "node --test \"test/**/*.test.mjs\"",

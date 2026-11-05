@@ -6,6 +6,16 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Added
+
+- Agent skill in `skills/figma-bridge/`: teaches an agent to check the connection first, locate nodes cheaply before reading them, keep reads shallow, follow recipes (describe a screen, design tokens as CSS variables, build a component, capture a page, export icons) and respect the read-only / local-only limits. It works with any agent that reads Agent Skills, and through the CLI when MCP is not available.
+- `skill install` / `skill path`: copies the skill to `~/.claude/skills/figma-bridge` (`--project` for `./.claude/skills`, `--dir` for any skills folder).
+- Claude Code plugin marketplace (`.claude-plugin/`): one install brings the skill and the MCP server.
+- `setup` reports whether the skill is installed.
+- The MCP server's instructions tell the agent to call `figma_ping` first.
+
 ## [1.0.1]
 
 ### Fixed

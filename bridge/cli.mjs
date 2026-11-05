@@ -20,6 +20,7 @@ import { BridgeError, UsageError } from './lib/errors.mjs';
 import { shown } from './lib/output.mjs';
 import { FIGMA_IMPORT, FIGMA_RUN, install, pluginPath } from './lib/plugin-files.mjs';
 import { PACKAGE, PORT } from './lib/protocol.mjs';
+import { install as installSkill, skillPath } from './lib/skill-files.mjs';
 import { call, ensurePlugin, health, kb, stopHostedRelay } from './lib/rpc.mjs';
 import { capture, healthReport, icons, saveAnswer, setupReport, view } from './lib/tasks.mjs';
 
@@ -128,10 +129,25 @@ async function serve() {
   await relay.close();
 }
 
+/** `skill install | path` */
+async function skill(args) {
+  const where = { dir: args.dir, project: args.project };
+  if (args.action === 'install') {
+    const done = await installSkill(where);
+    out(done.skill);
+    err(`✓ skill files in ${done.dir}`);
+    err('  Restart your agent (or start a new session) to load it.');
+    return;
+  }
+  if (args.action === 'path') return out(skillPath(where));
+  throw new UsageError(`skill: unknown action \`${args.action}\` — use \`install\` or \`path\`.`);
+}
+
 async function local(cmd, args) {
   if (cmd.name === 'setup') return out(await setupReport());
   if (cmd.name === 'serve') return serve();
   if (cmd.name === 'mcp') return void (await import('./mcp.mjs'));
+  if (cmd.name === 'skill') return skill(args);
 
   // plugin install | path
   if (args.action === 'install') {

@@ -232,6 +232,16 @@ export const COMMANDS = [
     },
   },
   {
+    name: 'skill',
+    where: 'local',
+    summary: 'install: copy the agent skill into a skills folder (default ~/.claude/skills). path: print where it is.',
+    args: {
+      action: { type: 'string', positional: true, required: true, desc: 'install | path' },
+      project: { type: 'boolean', default: false, desc: 'use ./.claude/skills in the current folder' },
+      dir: { type: 'string', desc: 'skills root folder; figma-bridge/ is created inside it' },
+    },
+  },
+  {
     name: 'serve',
     where: 'local',
     summary: 'Run the relay in the foreground. Only needed for CLI use without Claude Code running.',

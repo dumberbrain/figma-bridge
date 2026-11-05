@@ -1,0 +1,13 @@
+{
+  "name": "figma-bridge",
+  "owner": {
+    "name": "Javid Salimov"
+  },
+  "plugins": [
+    {
+      "name": "figma-bridge",
+      "source": "./",
+      "description": "Read the Figma file open in Figma desktop — agent skill + local MCP server, read-only, no API token."
+    }
+  ]
+}

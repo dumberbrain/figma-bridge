@@ -42,12 +42,13 @@ test('inputSchema lists required fields and defaults', () => {
 
 test('local commands are not MCP tools; image commands are', () => {
   const names = mcpCommands().map((c) => c.name);
-  for (const local of ['setup', 'plugin', 'serve', 'mcp']) assert.ok(!names.includes(local), local);
+  for (const local of ['setup', 'plugin', 'skill', 'serve', 'mcp']) assert.ok(!names.includes(local), local);
   for (const tool of ['screens', 'view', 'capture', 'dump', 'health']) assert.ok(names.includes(tool), tool);
   assert.equal(byName('view').mcp, 'image');
 });
 
 test('positionals keep declaration order', () => {
   assert.deepEqual(positionals(byName('plugin')), ['action']);
+  assert.deepEqual(positionals(byName('skill')), ['action']);
   assert.deepEqual(positionals(byName('node')), ['id']);
 });

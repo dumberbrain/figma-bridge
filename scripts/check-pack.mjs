@@ -1,6 +1,7 @@
 // @ts-check
 // Audits what `npm publish` would ship, against
-// specs/001-npm-figma-bridge/contracts/package-surface.md:
+// specs/001-npm-figma-bridge/contracts/package-surface.md, as amended by
+// specs/002-figma-bridge-agent-skill/contracts/distribution.md (skills/):
 //   · the file list equals the allow-list, no more and no less
 //   · no shipped file names the private project this came from
 //   · the bin keeps an LF shebang (a CRLF one breaks `npx` on macOS/Linux)
@@ -27,6 +28,7 @@ const ALLOW = [
   'bridge/lib/plugin-files.mjs',
   'bridge/lib/protocol.mjs',
   'bridge/lib/rpc.mjs',
+  'bridge/lib/skill-files.mjs',
   'bridge/lib/tasks.mjs',
   'bridge/mcp.mjs',
   'bridge/plugin/code.js',
@@ -34,6 +36,10 @@ const ALLOW = [
   'bridge/plugin/ui.html',
   'bridge/relay.mjs',
   'package.json',
+  'skills/figma-bridge/SKILL.md',
+  'skills/figma-bridge/references/tools.md',
+  'skills/figma-bridge/references/troubleshooting.md',
+  'skills/figma-bridge/references/workflows.md',
 ];
 
 const FORBIDDEN = [

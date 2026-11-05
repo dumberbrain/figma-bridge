@@ -129,6 +129,37 @@ test('plugin install / path', async () => {
   assert.equal(bad.code, 2);
 });
 
+test('skill install / path', async () => {
+  const dir = path.join(root, 's');
+  const installed = await cli(['skill', 'install', '--dir', dir]);
+  assert.equal(installed.code, 0, installed.stderr);
+  const skill = installed.stdout.trim();
+  assert.equal(skill, path.join(dir, 'figma-bridge', 'SKILL.md'));
+  assert.ok(existsSync(skill));
+  assert.match(installed.stderr, /skill files in/);
+
+  const shown = await cli(['skill', 'path', '--dir', dir]);
+  assert.equal(shown.code, 0, shown.stderr);
+  assert.equal(shown.stdout.trim(), skill);
+
+  const missing = await cli(['skill', 'path', '--dir', path.join(root, 'no-skills')]);
+  assert.equal(missing.code, 1);
+  assert.match(missing.stderr, /skill install/);
+
+  const both = await cli(['skill', 'install', '--project', '--dir', dir]);
+  assert.equal(both.code, 2);
+
+  const bad = await cli(['skill', 'wobble']);
+  assert.equal(bad.code, 2);
+  assert.match(bad.stderr, /unknown action/);
+});
+
+test('setup reports the skill state', async () => {
+  const r = await cli(['setup']);
+  assert.equal(r.code, 0, r.stderr);
+  assert.match(r.stdout, /^skill: /m);
+});
+
 test('setup prints the claude mcp add line for this OS', async () => {
   const r = await cli(['setup']);
   assert.equal(r.code, 0, r.stderr);
