@@ -37,7 +37,7 @@ Not shipped: `.claude-plugin/**`, `docs/**`. The existing allow-list check ensur
   "license": "MIT",
   "repository": "https://github.com/javidselimov/figma-bridge",
   "mcpServers": {
-    "figma-bridge": { "command": "npx", "args": ["-y", "@ubuligan/figma-bridge", "mcp"] }
+    "figma-bridge": { "command": "node", "args": ["${CLAUDE_PLUGIN_ROOT}/bin/figma-bridge.mjs", "mcp"] }
   }
 }
 ```

@@ -13,8 +13,11 @@ test('plugin.json names the plugin, matches the package version and starts the M
   assert.equal(plugin.version, pkg.version);
   const server = plugin.mcpServers?.['figma-bridge'];
   assert.ok(server, 'mcpServers.figma-bridge');
-  assert.ok(server.args.includes('@ubuligan/figma-bridge'));
-  assert.ok(server.args.includes('mcp'));
+  // `node` is a real executable everywhere; `npx` is `npx.cmd` on Windows and
+  // fails with ENOENT when spawned without a shell, which is how plugin MCP
+  // servers are started. The plugin root already holds the package code.
+  assert.equal(server.command, 'node');
+  assert.deepEqual(server.args, ['${CLAUDE_PLUGIN_ROOT}/bin/figma-bridge.mjs', 'mcp']);
 });
 
 test('marketplace.json lists the plugin from the repo root', () => {

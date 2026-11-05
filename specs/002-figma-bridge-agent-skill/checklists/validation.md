@@ -37,8 +37,10 @@ marketplace and loading references:
   `/plugin install figma-bridge@figma-bridge` (the part after `@` is the marketplace `name`)
 - [x] No root lockfile, so Claude Code's automatic Node dependency install for plugins does not
   run (it triggers only when the plugin root has `package.json` **and** a lockfile)
-- [ ] Windows: plugin `mcpServers` with `npx` without `cmd /c` is **not documented**; test a
-  real install on Windows
+- [x] Windows: `npx` spawned without a shell fails with `ENOENT` (reproduced 2026-11-05; the
+  plugin showed `CONNECTION_CLOSED`). Fixed: the plugin now runs
+  `node ${CLAUDE_PLUGIN_ROOT}/bin/figma-bridge.mjs mcp`, and the MCP handshake works from the
+  plugin cache. Still to do: reinstall the plugin and confirm in Claude Code
 - [ ] End-to-end `/plugin install` on macOS/Linux after pushing to GitHub
 - Note: the plugin cache copies the whole repo, including `figma-bridge-site/`. This works, but
   it is heavy. Consider a slimmer plugin source later if install size matters.
