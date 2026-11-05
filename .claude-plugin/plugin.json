@@ -11,8 +11,11 @@
   "keywords": ["figma", "mcp", "design-tokens", "design-to-code"],
   "mcpServers": {
     "figma-bridge": {
-      "command": "npx",
-      "args": ["-y", "@ubuligan/figma-bridge", "mcp"]
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/bin/figma-bridge.mjs",
+        "mcp"
+      ]
     }
   }
 }
