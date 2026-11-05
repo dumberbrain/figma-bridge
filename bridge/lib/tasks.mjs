@@ -14,6 +14,7 @@ import { BridgeError } from './errors.mjs';
 import { shown, writeOut } from './output.mjs';
 import { FIGMA_IMPORT, FIGMA_RUN, installedManifest, defaultPluginDir } from './plugin-files.mjs';
 import { NPX, PACKAGE, PROTOCOL } from './protocol.mjs';
+import { installedSkill } from './skill-files.mjs';
 import { call, callJSON, currentPort, health, kb, slug } from './rpc.mjs';
 
 const PREVIEW_EDGE = 1568;
@@ -232,6 +233,7 @@ export async function setupReport() {
   const [major, minor] = process.versions.node.split('.').map(Number);
   const nodeOk = major > 22 || (major === 22 && minor >= 12);
   const manifest = installedManifest();
+  const skill = installedSkill();
   const port = currentPort();
   const add =
     process.platform === 'win32'
@@ -244,11 +246,13 @@ export async function setupReport() {
     `node:    ${process.versions.node} ${nodeOk ? '✓' : '✗ needs 22.12 or newer'}`,
     `port:    ${port} — ${await portStatus(port)}`,
     `plugin:  ${manifest ? `installed → ${manifest}` : `not installed in ${defaultPluginDir()}`}`,
+    `skill:   ${skill ? `installed → ${skill}` : `not installed (optional) — ${NPX} skill install`}`,
     '',
     'Steps:',
     `  1. ${manifest ? '(done) ' : ''}${NPX} plugin install`,
     `  2. ${FIGMA_IMPORT}${manifest ? ` → ${manifest}` : ''}`,
     `  3. ${add}`,
     `  4. ${FIGMA_RUN}, then ask Claude: "is Figma connected?"`,
+    `  5. ${skill ? '(done) ' : '(optional) '}${NPX} skill install, so your agent knows how to use these tools`,
   ].join('\n');
 }

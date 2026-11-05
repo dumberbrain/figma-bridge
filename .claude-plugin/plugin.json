@@ -1,0 +1,18 @@
+{
+  "name": "figma-bridge",
+  "version": "1.1.0",
+  "description": "Read the Figma file open in Figma desktop — agent skill + local MCP server, read-only, no API token.",
+  "author": {
+    "name": "Javid Salimov"
+  },
+  "homepage": "https://github.com/javidselimov/figma-bridge#readme",
+  "repository": "https://github.com/javidselimov/figma-bridge",
+  "license": "MIT",
+  "keywords": ["figma", "mcp", "design-tokens", "design-to-code"],
+  "mcpServers": {
+    "figma-bridge": {
+      "command": "npx",
+      "args": ["-y", "@ubuligan/figma-bridge", "mcp"]
+    }
+  }
+}

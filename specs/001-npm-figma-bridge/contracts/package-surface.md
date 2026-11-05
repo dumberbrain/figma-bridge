@@ -8,12 +8,12 @@ semver event: removing or renaming = major, adding = minor.
 ```json
 {
   "name": "@ubuligan/figma-bridge",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Read a live Figma file from Claude or the terminal — local MCP server + Figma plugin, no API token.",
   "type": "module",
   "bin": { "figma-bridge": "bin/figma-bridge.mjs" },
   "exports": { "./package.json": "./package.json" },
-  "files": ["bin/", "bridge/", "CHANGELOG.md"],
+  "files": ["bin/", "bridge/", "skills/", "CHANGELOG.md"],
   "engines": { "node": ">=22.12.0" },
   "publishConfig": { "access": "public" },
   "license": "MIT",
@@ -21,7 +21,7 @@ semver event: removing or renaming = major, adding = minor.
   "repository": { "type": "git", "url": "git+https://github.com/javidselimov/figma-bridge.git" },
   "bugs": "https://github.com/javidselimov/figma-bridge/issues",
   "homepage": "https://github.com/javidselimov/figma-bridge#readme",
-  "keywords": ["figma", "mcp", "claude", "design-tokens", "figma-plugin", "model-context-protocol"],
+  "keywords": ["figma", "mcp", "claude", "design-tokens", "figma-plugin", "model-context-protocol", "agent-skill", "claude-code-skill"],
   "scripts": {
     "test": "node --test \"test/**/*.test.mjs\"",
     "check:pack": "node scripts/check-pack.mjs",
@@ -33,6 +33,7 @@ semver event: removing or renaming = major, adding = minor.
 - No `dependencies`, `devDependencies`, `peerDependencies`, `optionalDependencies`.
 - No `preinstall` / `install` / `postinstall` scripts.
 - `version` 1.0.0 and `engines` `>=22.12.0` confirmed by the user (2026-10-19).
+- Amended for 1.1.0 by [spec 002 distribution contract](../../002-figma-bridge-agent-skill/contracts/distribution.md): `skills/` added to `files`, skill files and `bridge/lib/skill-files.mjs` added to the allow-list.
 
 ## Tarball allow-list
 
@@ -53,10 +54,15 @@ bridge/lib/rpc.mjs
 bridge/lib/tasks.mjs
 bridge/lib/output.mjs
 bridge/lib/plugin-files.mjs
+bridge/lib/skill-files.mjs
 bridge/lib/protocol.mjs
 bridge/plugin/manifest.json
 bridge/plugin/code.js
 bridge/plugin/ui.html
+skills/figma-bridge/SKILL.md
+skills/figma-bridge/references/tools.md
+skills/figma-bridge/references/workflows.md
+skills/figma-bridge/references/troubleshooting.md
 ```
 
 ## Forbidden content in any shipped file

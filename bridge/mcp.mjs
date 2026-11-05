@@ -135,6 +135,7 @@ async function handle(msg) {
         serverInfo: { name: 'figma-bridge', version: PACKAGE.version },
         instructions:
           'Reads the Figma file open in Figma desktop through the local figma-bridge plugin — no API token, read-only. ' +
+          'Call figma_ping first; if it fails, the plugin is not running in Figma desktop. ' +
           'If a tool says the plugin is not connected, ask the user to run Plugins → Development → figma-bridge in Figma. ' +
           'Start with figma_pages / figma_screens / figma_find to locate ids, figma_view to see a screen, figma_node for structure.',
       });

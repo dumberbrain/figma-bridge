@@ -62,6 +62,35 @@ and prints these steps with your actual paths.
 - "Get Figma's CSS for node 12:345 and build it as a React component."
 - "Capture the *Design System* page into this project."
 
+## Agent skill
+
+The package ships an [Agent Skill](./skills/figma-bridge/SKILL.md) that teaches your agent how
+to use these tools well. With it, the agent checks the connection first and finds a node
+before reading it, keeping answers small. It also follows tested recipes for describing
+screens, design tokens, components, captures and icons, and never invents design values.
+
+**Claude Code plugin** (skill + MCP server in one step):
+
+```
+/plugin marketplace add javidselimov/figma-bridge
+/plugin install figma-bridge@figma-bridge
+```
+
+**Skill only:**
+
+```sh
+npx @ubuligan/figma-bridge skill install            # ~/.claude/skills/figma-bridge (all projects)
+npx @ubuligan/figma-bridge skill install --project  # ./.claude/skills/figma-bridge (this project)
+```
+
+**Other agents** that read Agent Skills (a folder with a `SKILL.md`): run
+`npx @ubuligan/figma-bridge skill install --dir <skills folder>`, or copy
+[`skills/figma-bridge/`](./skills/figma-bridge/) there. Check your agent's docs for where that
+folder is. Agents without MCP support can use the same commands through the CLI; the skill
+explains how.
+
+Start a new agent session after installing. Re-run `skill install` after updating the package.
+
 ## Commands
 
 The same commands are available as MCP tools (`figma_<name>`) and on the command line
@@ -89,7 +118,7 @@ The same commands are available as MCP tools (`figma_<name>`) and on the command
 | `icons [--map] [--page] [--match] [--out]` | one `.svg` per icon component |
 | `health` | is the relay up, is the plugin connected |
 
-Setup commands (CLI only): `setup`, `plugin install|path`, `serve`, `mcp`.
+Setup commands (CLI only): `setup`, `plugin install|path`, `skill install|path [--project|--dir]`, `serve`, `mcp`.
 
 ## Using the CLI
 
@@ -131,6 +160,7 @@ Then close and re-run the plugin in Figma. Set `FIGMA_BRIDGE_PORT=7444` for CLI 
 ## Updating
 
 After a new version, run `npx @ubuligan/figma-bridge plugin install` again and re-run the plugin.
+If you installed the skill with `skill install`, run that again too.
 You don't need to import it into Figma again. If the plugin is out of date, Claude and the CLI
 tell you to do exactly this.
 
